@@ -44,12 +44,12 @@ dir.create(tables_dir, recursive = TRUE, showWarnings = FALSE)
 dir.create(figures_dir, recursive = TRUE, showWarnings = FALSE)
 
 target_symbol <- "Plcxd2"
-nominal_threshold <- 0.05
 fdr_threshold <- 0.05
 min_gene_set_size <- 10L
 max_gene_set_size <- 500L
 plot_pathways_per_direction <- 8L
-max_integrated_plot_pathways <- 30L
+max_integrated_plot_pathways <- 16L
+network_features_per_direction <- 5L
 set.seed(20260920)
 
 message("Reading expression matrices and metadata")
@@ -142,6 +142,9 @@ calculate_target_correlations <- function(
     (n_samples - 2) / pmax(1 - correlation^2, .Machine$double.eps)
   )
   correlation_p <- 2 * pt(-abs(correlation_t), df = n_samples - 2)
+  correlation[target_rows] <- 1
+  correlation_t[target_rows] <- Inf
+  correlation_p[target_rows] <- 0
 
   output <- data.frame(
     FeatureID = expression_table[[id_column]],
@@ -152,7 +155,6 @@ calculate_target_correlations <- function(
     MeanExpression = rowMeans(matrix_data),
     stringsAsFactors = FALSE
   )
-  output <- output[-target_rows, , drop = FALSE]
   output <- output[is.finite(output$PearsonR), , drop = FALSE]
   output <- output[order(-output$PearsonR), , drop = FALSE]
   list(
@@ -372,13 +374,13 @@ write.csv(
   row.names = FALSE, quote = TRUE
 )
 write.csv(
-  rna_gsea[rna_gsea$pvalue < nominal_threshold, , drop = FALSE],
-  file.path(tables_dir, "rna_correlation_gsea_pvalue.csv"),
+  rna_gsea[rna_gsea$p.adjust < fdr_threshold, , drop = FALSE],
+  file.path(tables_dir, "rna_correlation_gsea_fdr.csv"),
   row.names = FALSE, quote = TRUE
 )
 write.csv(
-  protein_gsea[protein_gsea$pvalue < nominal_threshold, , drop = FALSE],
-  file.path(tables_dir, "protein_correlation_gsea_pvalue.csv"),
+  protein_gsea[protein_gsea$p.adjust < fdr_threshold, , drop = FALSE],
+  file.path(tables_dir, "protein_correlation_gsea_fdr.csv"),
   row.names = FALSE, quote = TRUE
 )
 
@@ -409,20 +411,21 @@ integrated$DirectionPattern <- ifelse(
     "Opposite"
   )
 )
-integrated$SharedPvalue <- integrated$RNA_pvalue < nominal_threshold &
-  integrated$Protein_pvalue < nominal_threshold
 integrated$SharedFDR <- integrated$RNA_padj < fdr_threshold &
   integrated$Protein_padj < fdr_threshold
 integrated$JointPvalue <- pmax(
   integrated$RNA_pvalue, integrated$Protein_pvalue
 )
+integrated$JointFDR <- pmax(
+  integrated$RNA_padj, integrated$Protein_padj
+)
 integrated <- integrated[
-  order(!integrated$SharedPvalue, integrated$JointPvalue),
+  order(!integrated$SharedFDR, integrated$JointFDR, integrated$JointPvalue),
   ,
   drop = FALSE
 ]
 shared_concordant <- integrated[
-  integrated$SharedPvalue & integrated$DirectionPattern != "Opposite",
+  integrated$SharedFDR & integrated$DirectionPattern != "Opposite",
   ,
   drop = FALSE
 ]
@@ -476,7 +479,7 @@ wrap_label <- function(x, width = 46) {
 }
 
 select_overview <- function(gsea_table) {
-  candidates <- gsea_table[gsea_table$pvalue < nominal_threshold, , drop = FALSE]
+  candidates <- gsea_table[gsea_table$p.adjust < fdr_threshold, , drop = FALSE]
   if (nrow(candidates) == 0) {
     candidates <- gsea_table
   }
@@ -502,7 +505,7 @@ make_overview_plot <- function(gsea_table, omics_label) {
     plot_data$PathwayLabel,
     levels = plot_data$PathwayLabel[order(plot_data$NES)]
   )
-  plot_data$PScore <- -log10(pmax(plot_data$pvalue, 1e-10))
+  plot_data$PScore <- -log10(pmax(plot_data$p.adjust, 1e-10))
   ggplot(plot_data, aes(x = NES, y = PathwayLabel)) +
     geom_vline(xintercept = 0, color = "#9AA2AE", linewidth = 0.45) +
     geom_segment(
@@ -516,11 +519,11 @@ make_overview_plot <- function(gsea_table, omics_label) {
     scale_size_continuous(range = c(2.6, 6.0)) +
     labs(
       title = paste0("Plcxd2-associated ", tolower(omics_label), " GSEA"),
-      subtitle = "P value < 0.05",
+      subtitle = "FDR < 0.05",
       x = "Normalized enrichment score (NES)",
       y = NULL,
       color = "NES",
-      size = "-log10(P value)"
+      size = "-log10(FDR)"
     ) +
     theme_project() +
     theme(panel.grid.major.y = element_blank())
@@ -538,6 +541,178 @@ save_ggplot(
   7.2
 )
 
+select_network_features <- function(
+  correlation_table,
+  omics_label,
+  n_per_direction = 5L
+) {
+  candidates <- correlation_table[
+    !is.na(correlation_table$GeneName) &
+      correlation_table$GeneName != "" &
+      tolower(correlation_table$GeneName) != tolower(target_symbol) &
+      is.finite(correlation_table$PearsonR),
+    ,
+    drop = FALSE
+  ]
+  candidates <- candidates[
+    order(-abs(candidates$PearsonR), -candidates$MeanExpression),
+    ,
+    drop = FALSE
+  ]
+  candidates <- candidates[
+    !duplicated(tolower(candidates$GeneName)),
+    ,
+    drop = FALSE
+  ]
+  positive <- candidates[candidates$PearsonR > 0, , drop = FALSE]
+  negative <- candidates[candidates$PearsonR < 0, , drop = FALSE]
+  positive <- head(
+    positive[order(-positive$PearsonR), , drop = FALSE],
+    n_per_direction
+  )
+  negative <- head(
+    negative[order(negative$PearsonR), , drop = FALSE],
+    n_per_direction
+  )
+  selected <- rbind(positive, negative)
+  selected$Omics <- omics_label
+  selected$Direction <- ifelse(selected$PearsonR > 0, "Positive", "Negative")
+  selected
+}
+
+assign_network_layout <- function(nodes, side) {
+  if (nrow(nodes) == 0) {
+    return(nodes)
+  }
+  nodes <- nodes[
+    order(factor(nodes$Direction, levels = c("Positive", "Negative")),
+          -abs(nodes$PearsonR)),
+    ,
+    drop = FALSE
+  ]
+  angles <- if (side == "left") {
+    seq(112, 248, length.out = nrow(nodes))
+  } else {
+    seq(-68, 68, length.out = nrow(nodes))
+  }
+  angles <- angles * pi / 180
+  nodes$x <- 2.15 * cos(angles)
+  nodes$y <- 2.15 * sin(angles)
+  nodes$label_x <- 1.12 * nodes$x
+  nodes$label_y <- 1.12 * nodes$y
+  nodes$label_hjust <- ifelse(nodes$x < 0, 1, 0)
+  nodes
+}
+
+rna_network <- select_network_features(
+  rna_cor$table, "Transcriptomics", network_features_per_direction
+)
+protein_network <- select_network_features(
+  protein_cor$table, "Proteomics", network_features_per_direction
+)
+network_nodes <- rbind(
+  assign_network_layout(rna_network, "left"),
+  assign_network_layout(protein_network, "right")
+)
+network_nodes$Omics <- factor(
+  network_nodes$Omics,
+  levels = c("Transcriptomics", "Proteomics")
+)
+network_nodes$Direction <- factor(
+  network_nodes$Direction,
+  levels = c("Positive", "Negative")
+)
+write.csv(
+  network_nodes[
+    ,
+    c(
+      "Omics", "Direction", "FeatureID", "GeneName", "PearsonR",
+      "Pvalue", "MeanExpression"
+    ),
+    drop = FALSE
+  ],
+  file.path(tables_dir, "plcxd2_correlation_network_nodes.csv"),
+  row.names = FALSE,
+  quote = TRUE
+)
+
+network_plot <- ggplot(network_nodes) +
+  geom_segment(
+    aes(
+      x = 0, y = 0, xend = x, yend = y,
+      color = Direction, linewidth = abs(PearsonR)
+    ),
+    alpha = 0.72,
+    lineend = "round"
+  ) +
+  geom_point(
+    aes(x = x, y = y, fill = Omics),
+    shape = 21,
+    size = 17.5,
+    stroke = 1.0,
+    color = "white"
+  ) +
+  geom_text(
+    aes(x = x, y = y, label = GeneName),
+    color = "white",
+    fontface = "bold",
+    size = 2.2
+  ) +
+  geom_point(
+    data = data.frame(x = 0, y = 0),
+    aes(x = x, y = y),
+    inherit.aes = FALSE,
+    shape = 21,
+    size = 17.5,
+    stroke = 1.2,
+    fill = "#F2B134",
+    color = "white"
+  ) +
+  annotate(
+    "text", x = 0, y = 0, label = target_symbol,
+    color = "#273142", fontface = "bold", size = 3.6
+  ) +
+  annotate(
+    "text", x = -1.65, y = 2.55, label = "Transcriptomics",
+    color = "#6B4FA3", fontface = "bold", size = 4.2
+  ) +
+  annotate(
+    "text", x = 1.65, y = 2.55, label = "Proteomics",
+    color = "#2E8B68", fontface = "bold", size = 4.2
+  ) +
+  scale_fill_manual(
+    values = c(Transcriptomics = "#6B4FA3", Proteomics = "#2E8B68")
+  ) +
+  scale_color_manual(
+    values = c(Positive = "#D95F59", Negative = "#4C78A8")
+  ) +
+  scale_linewidth_continuous(
+    range = c(0.7, 2.2), limits = c(0, 1),
+    breaks = c(0.6, 0.8, 1.0)
+  ) +
+  coord_equal(xlim = c(-3.75, 3.75), ylim = c(-2.75, 2.85), clip = "off") +
+  labs(
+    title = "Plcxd2-centered cross-omics correlation network",
+    fill = "Omics",
+    color = "Correlation",
+    linewidth = "|Pearson r|"
+  ) +
+  theme_void(base_size = 12) +
+  theme(
+    plot.title = element_text(
+      face = "bold", size = 17, color = "#111827", hjust = 0.5
+    ),
+    legend.title = element_text(face = "bold"),
+    legend.position = "right",
+    plot.margin = margin(12, 28, 12, 28)
+  )
+save_ggplot(
+  network_plot,
+  file.path(figures_dir, "04_plcxd2_correlation_network"),
+  12.0,
+  8.2
+)
+
 if (nrow(shared_concordant) > 0) {
   integrated_negative <- shared_concordant[
     shared_concordant$DirectionPattern == "Both negative",
@@ -552,11 +727,11 @@ if (nrow(shared_concordant) > 0) {
   pathways_per_direction <- max_integrated_plot_pathways %/% 2L
   integrated_selected <- rbind(
     head(
-      integrated_negative[order(integrated_negative$JointPvalue), , drop = FALSE],
+      integrated_negative[order(integrated_negative$JointFDR), , drop = FALSE],
       pathways_per_direction
     ),
     head(
-      integrated_positive[order(integrated_positive$JointPvalue), , drop = FALSE],
+      integrated_positive[order(integrated_positive$JointFDR), , drop = FALSE],
       pathways_per_direction
     )
   )
@@ -611,7 +786,7 @@ if (nrow(shared_concordant) > 0) {
     ) +
     labs(
       title = "Shared Plcxd2-associated pathways",
-      subtitle = "concordant pathways | P value < 0.05",
+      subtitle = "concordant pathways | FDR < 0.05",
       x = "Normalized enrichment score (NES)",
       y = NULL,
       color = "Omics"
@@ -624,33 +799,6 @@ if (nrow(shared_concordant) > 0) {
     10.0,
     max(6.4, 2.8 + 0.34 * nrow(integrated_selected))
   )
-
-  heatmap <- ggplot(
-    integrated_long,
-    aes(x = Omics, y = PathwayLabel, fill = NES)
-  ) +
-    geom_tile(color = "white", linewidth = 0.8) +
-    scale_fill_gradient2(
-      low = "#3B6FB6", mid = "#F4F5F7", high = "#D95555", midpoint = 0
-    ) +
-    labs(
-      title = "Shared Plcxd2-associated pathways",
-      subtitle = "concordant pathways | P value < 0.05",
-      x = NULL,
-      y = NULL,
-      fill = "NES"
-    ) +
-    theme_project() +
-    theme(
-      panel.grid = element_blank(),
-      axis.text.x = element_text(face = "bold")
-    )
-  save_ggplot(
-    heatmap,
-    file.path(figures_dir, "04_shared_concordant_pathway_heatmap"),
-    8.6,
-    max(6.4, 2.8 + 0.34 * nrow(integrated_selected))
-  )
 }
 
 summary_table <- data.frame(
@@ -661,12 +809,11 @@ summary_table <- data.frame(
     "Protein features with finite correlation",
     "Ranked RNA genes",
     "Ranked protein genes",
-    "RNA pathways with P value < 0.05",
-    "Protein pathways with P value < 0.05",
-    "Shared pathways with P value < 0.05",
-    "Shared concordant pathways",
-    "Shared opposite-direction pathways",
-    "Shared concordant FDR pathways"
+    "RNA pathways with FDR < 0.05",
+    "Protein pathways with FDR < 0.05",
+    "Shared pathways with FDR < 0.05",
+    "Shared concordant pathways with FDR < 0.05",
+    "Shared opposite-direction pathways with FDR < 0.05"
   ),
   Value = c(
     rna_cor$sample_count,
@@ -675,12 +822,11 @@ summary_table <- data.frame(
     nrow(protein_cor$table),
     length(rna_rank),
     length(protein_rank),
-    sum(rna_gsea$pvalue < nominal_threshold),
-    sum(protein_gsea$pvalue < nominal_threshold),
-    sum(integrated$SharedPvalue),
+    sum(rna_gsea$p.adjust < fdr_threshold),
+    sum(protein_gsea$p.adjust < fdr_threshold),
+    sum(integrated$SharedFDR),
     nrow(shared_concordant),
-    sum(integrated$SharedPvalue & integrated$DirectionPattern == "Opposite"),
-    sum(shared_concordant$SharedFDR)
+    sum(integrated$SharedFDR & integrated$DirectionPattern == "Opposite")
   ),
   stringsAsFactors = FALSE
 )
@@ -695,11 +841,12 @@ write.table(
   data.frame(
     Parameter = c(
       "Target gene", "Correlation method", "Group adjustment",
-      "RNA samples", "Protein samples", "GSEA ranking metric"
+      "RNA samples", "Protein samples", "GSEA ranking metric",
+      "Target self-correlation included"
     ),
     Value = c(
       target_symbol, "Pearson", "None", rna_cor$sample_count,
-      protein_cor$sample_count, "Pearson correlation coefficient"
+      protein_cor$sample_count, "Pearson correlation coefficient", "Yes (r = 1)"
     ),
     stringsAsFactors = FALSE
   ),
@@ -711,11 +858,11 @@ write.table(
 capture.output(sessionInfo(), file = file.path(output_dir, "session_info.txt"))
 
 message(
-  "Plcxd2 correlation GSEA complete. Shared P-value pathways: ",
-  sum(integrated$SharedPvalue),
+  "Plcxd2 correlation GSEA complete. Shared FDR pathways: ",
+  sum(integrated$SharedFDR),
   "; concordant: ", nrow(shared_concordant),
   "; opposite: ",
-  sum(integrated$SharedPvalue & integrated$DirectionPattern == "Opposite"),
+  sum(integrated$SharedFDR & integrated$DirectionPattern == "Opposite"),
   "."
 )
 message("Results written to: ", normalizePath(output_dir))

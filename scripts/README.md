@@ -85,13 +85,18 @@ bash scripts/run_plcxd2_correlation_gsea.sh
 ```
 
 For each omics layer, Pearson correlations are calculated between `Plcxd2`
-and every other measured gene or protein across all available frontal-cortex
+and every measured gene or protein across all available frontal-cortex
 samples. The calculation intentionally does not adjust for Control/Asphyxia,
 so the results describe expression patterns that co-vary with `Plcxd2`,
-including shared responses to asphyxia. `Plcxd2` itself is excluded from the
-ranked lists. GO Biological Process, Molecular Function, Cellular Component,
+including shared responses to asphyxia. GO Biological Process, Molecular
+Function, Cellular Component,
 and KEGG GSEA are performed separately for the transcriptome and proteome,
 followed by pathway-level integration. Shared
-figures retain pathways with `P < 0.05` in both layers and concordant NES
-directions. These results are exploratory and do not establish regulation by
-`Plcxd2`.
+figures retain pathways with `FDR < 0.05` in both layers and concordant NES
+directions, displaying up to eight negative and eight positive pathways.
+`Plcxd2` itself is retained in each ranked list with its self-correlation fixed
+at `r = 1`. A Plcxd2-centered network additionally displays the five strongest
+positive and five strongest negative correlates from each omics layer; edge
+color indicates correlation direction and edge width indicates absolute
+Pearson correlation. These results are exploratory and do not establish
+regulation by `Plcxd2`.
