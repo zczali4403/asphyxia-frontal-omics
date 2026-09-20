@@ -76,27 +76,22 @@ correlations are exported as exploratory tables because of the small paired
 sample size. The candidate expression figure instead compares Control and
 Asphyxia using all frontal-cortex samples available in each omics dataset.
 
-## Ranked GSEA and Pathway Integration
+## Step 4: Plcxd2-Centered Correlation GSEA
 
-After completing the transcriptomic and proteomic analyses, run:
+Run the Plcxd2-centered co-response analysis with:
 
 ```bash
-bash scripts/run_pathway_gsea.sh
+bash scripts/run_plcxd2_correlation_gsea.sh
 ```
 
-RNA genes are ranked by the DESeq2 Wald statistic, and proteins are ranked by
-the limma moderated t statistic. Ranked GSEA is performed independently for
-GO Biological Process and KEGG pathways without applying a fold-change cutoff.
-GO gene sets use propagated `GOALL` Biological Process annotations so that
-genes are included in both directly annotated terms and their parent terms.
-KEGG mouse gene-pathway mappings are downloaded once from the KEGG REST API
-and cached under `data/reference/` for reproducible reruns.
-
-The pathway integration matches pathways tested in both omics layers and
-compares their normalized enrichment scores. Figures and prioritized pathway
-tables use nominal `P < 0.05` for both omics layers and are explicitly
-exploratory. FDR values and separate FDR-significant tables are retained for
-multiple-testing-aware interpretation. Integrated pathway figures show only
-shared pathways with concordant RNA and protein NES directions. A dedicated
-GSEA running-score plot is also produced for the GO Biological Process
-`lipid catabolic process`, with the position of `Plcxd2` highlighted.
+For each omics layer, Pearson correlations are calculated between `Plcxd2`
+and every other measured gene or protein across all available frontal-cortex
+samples. The calculation intentionally does not adjust for Control/Asphyxia,
+so the results describe expression patterns that co-vary with `Plcxd2`,
+including shared responses to asphyxia. `Plcxd2` itself is excluded from the
+ranked lists. GO Biological Process, Molecular Function, Cellular Component,
+and KEGG GSEA are performed separately for the transcriptome and proteome,
+followed by pathway-level integration. Shared
+figures retain pathways with `P < 0.05` in both layers and concordant NES
+directions. These results are exploratory and do not establish regulation by
+`Plcxd2`.

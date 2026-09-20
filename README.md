@@ -77,8 +77,9 @@ integration with:
 bash scripts/run_transcriptome_proteome_integration.sh
 ```
 
-Run ranked transcriptome-proteome GSEA and pathway-level integration with:
+As the fourth analysis step, run the unadjusted Plcxd2-centered correlation
+GSEA with:
 
 ```bash
-bash scripts/run_pathway_gsea.sh
+bash scripts/run_plcxd2_correlation_gsea.sh
 ```
