@@ -1,0 +1,19 @@
+Metric	Value
+Matched transcript-protein genes	7248
+RNA evidence genes among matched genes	7
+Exploratory protein evidence genes among matched genes	73
+Genes with evidence in both omics	1
+Concordant-up effect genes	1
+Concordant-down effect genes	0
+Discordant effect genes	0
+RNA-specific effect genes	11
+Protein-specific effect genes	212
+Stable-in-both genes	7024
+Fold-change Spearman rho	-0.0315004454943285
+Fold-change Spearman P value	0.00741209390202276
+Paired animals	6
+Plcxd2 paired-expression Spearman rho	0.714285714285714
+Plcxd2 paired-expression Spearman P value	0.110787172011662
+Absolute log2FC threshold	0.5
+RNA adjusted P-value threshold	0.05
+Protein nominal P-value threshold	0.05

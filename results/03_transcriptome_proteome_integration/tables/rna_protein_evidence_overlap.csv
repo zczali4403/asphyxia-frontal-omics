@@ -1,0 +1,2 @@
+"GeneName","GeneID","Accession","RNAFeatureCount","ProteinFeatureCount","RNABaseMean","RNA_log2FC","RNA_pvalue","RNA_padj","ProteinAveExpr","Protein_log2FC","Protein_pvalue","Protein_padj","RNAEffect","ProteinEffect","RNAEvidence","ProteinEvidence","Evidence","NineQuadrant","NineCell","LabelScore"
+"Plcxd2","ENSMUSG00000087141","B2RXA1","1","1",1758.20011893552,0.713818611494364,3.85552641705741e-05,0.0140543740087549,13.8105705283945,0.693554788230248,0.0228580861191762,0.999906683574988,"Up","Up",TRUE,TRUE,"Both","Concordant up","RNA up / Protein up",3.49314862878096

@@ -1,0 +1,15 @@
+"SampleID","Group","Omics","Expression","Zscore"
+"CON-R1-1","Control","Transcriptomics",10.4046730671983,-1.23383147253203
+"CON-R1-2","Control","Transcriptomics",10.4238494846922,-1.19081056651655
+"CON-R1-3","Control","Transcriptomics",10.9512231857381,-0.00768580220917525
+"Asphyxia-R1-1","Asphyxia","Transcriptomics",11.3502450168809,0.887490822996174
+"Asphyxia-R1-2","Asphyxia","Transcriptomics",11.2105466025086,0.574087531837452
+"Asphyxia-R1-3","Asphyxia","Transcriptomics",11.387357273171,0.970749486424138
+"CON-1","Control","Proteomics",13.5363345815152,-0.513755852895121
+"CON-2","Control","Proteomics",13.5136357519694,-0.556280024746872
+"CON-3","Control","Proteomics",13.0559374077049,-1.41373582476921
+"CON-4","Control","Proteomics",13.7492647959281,-0.114850657723977
+"Asphyxia-1","Asphyxia","Proteomics",14.7389324423129,1.73920075871877
+"Asphyxia-2","Asphyxia","Proteomics",13.7627069229706,-0.0896680676148748
+"Asphyxia-3","Asphyxia","Proteomics",14.4281678737035,1.15701188883381
+"Asphyxia-4","Asphyxia","Proteomics",13.6995844510516,-0.207922219802533
