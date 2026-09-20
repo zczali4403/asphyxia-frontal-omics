@@ -34,8 +34,6 @@ output_dir <- if (length(args) >= 3) args[[3]] else
   "results/01_transcriptomics"
 
 # Primary statistical thresholds.
-min_count <- 10L
-min_samples <- 3L
 alpha <- 0.05
 lfc_threshold <- 0.5
 top_labels <- 12L
@@ -157,19 +155,13 @@ write.csv(
   quote = TRUE
 )
 
-keep <- rowSums(count_matrix >= min_count) >= min_samples
-filtered_counts <- count_matrix[keep, , drop = FALSE]
-if (nrow(filtered_counts) < 2) {
-  stop("Too few genes remain after low-expression filtering.", call. = FALSE)
-}
-
 message(
-  "Retained ", nrow(filtered_counts), " of ", nrow(count_matrix),
-  " genes after filtering."
+  "Analyzing all ", nrow(count_matrix),
+  " input genes without explicit low-count prefiltering."
 )
 
 dds <- DESeqDataSetFromMatrix(
-  countData = filtered_counts,
+  countData = count_matrix,
   colData = metadata,
   design = ~ group
 )
@@ -178,7 +170,8 @@ dds <- DESeq(dds, quiet = TRUE)
 raw_results <- results(
   dds,
   contrast = c("group", "Asphyxia", "Control"),
-  alpha = alpha
+  alpha = alpha,
+  independentFiltering = FALSE
 )
 
 coefficient_name <- "group_Asphyxia_vs_Control"
@@ -397,7 +390,7 @@ distribution_plot <- ggplot(
   scale_fill_manual(values = group_colors) +
   labs(
     title = "Normalized expression distributions",
-    subtitle = "Variance-stabilizing transformation after low-count filtering",
+    subtitle = "Variance-stabilizing transformation without gene prefiltering",
     x = NULL,
     y = "VST expression",
     fill = "Group"
@@ -667,7 +660,7 @@ if (nrow(heatmap_candidates) >= 2) {
 summary_table <- data.frame(
   Metric = c(
     "Input genes",
-    "Genes retained after filtering",
+    "Genes analyzed without prefiltering",
     "Control samples",
     "Asphyxia samples",
     "FDR-significant upregulated genes",
@@ -675,13 +668,11 @@ summary_table <- data.frame(
     "FDR- and effect-size-filtered upregulated genes",
     "FDR- and effect-size-filtered downregulated genes",
     "Adjusted P-value threshold",
-    "Absolute shrunken log2FC threshold",
-    "Minimum count",
-    "Minimum samples passing count threshold"
+    "Absolute shrunken log2FC threshold"
   ),
   Value = c(
     nrow(count_matrix),
-    nrow(filtered_counts),
+    nrow(count_matrix),
     sum(metadata$group == "Control"),
     sum(metadata$group == "Asphyxia"),
     sum(result_table$FDRRegulation == "FDR up"),
@@ -689,9 +680,7 @@ summary_table <- data.frame(
     sum(result_table$ThresholdRegulation == "Up"),
     sum(result_table$ThresholdRegulation == "Down"),
     alpha,
-    lfc_threshold,
-    min_count,
-    min_samples
+    lfc_threshold
   ),
   stringsAsFactors = FALSE
 )
