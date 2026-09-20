@@ -1,0 +1,31 @@
+# Operating-system and editor files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# R
+.Rhistory
+.RData
+.Rproj.user/
+
+# Temporary files
+*.tmp
+*.temp
+~$*.xlsx
+
+# Large raw omics files should remain outside this repository
+*.fq
+*.fastq
+*.fq.gz
+*.fastq.gz
+*.raw
+*.tar
+*.zip
