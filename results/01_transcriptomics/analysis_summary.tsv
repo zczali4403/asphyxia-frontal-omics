@@ -1,0 +1,13 @@
+Metric	Value
+Input genes	35566
+Genes retained after filtering	14830
+Control samples	3
+Asphyxia samples	3
+FDR-significant upregulated genes	46
+FDR-significant downregulated genes	161
+FDR- and effect-size-filtered upregulated genes	4
+FDR- and effect-size-filtered downregulated genes	13
+Adjusted P-value threshold	0.05
+Absolute shrunken log2FC threshold	0.5
+Minimum count	10
+Minimum samples passing count threshold	3

@@ -1,10 +1,10 @@
 # Multi-Omics Analysis of Mechanical Asphyxia Effects on the Mouse Frontal Cortex
 
-This repository contains transcriptomic, proteomic, and metabolomic data for investigating the effects of mechanical asphyxia on the mouse frontal cortex. The asphyxia group is labeled `Asphyxia`, the control group is labeled `CON`, and the frontal cortex is designated as region `R1` in the source data.
+This repository contains transcriptomic, proteomic, and metabolomic data for investigating the effects of mechanical asphyxia on the mouse frontal cortex. The study groups are labeled `Control` and `Asphyxia`, and the frontal cortex is designated as region `R1` in the source data. Original sample identifiers retain the legacy `CON` prefix.
 
 ## Study Design
 
-| Omics layer | Asphyxia | CON | Tissue |
+| Omics layer | Asphyxia | Control | Tissue |
 |---|---:|---:|---|
 | Transcriptomics | 3 | 3 | Frontal cortex (R1) |
 | Proteomics | 4 | 4 | Frontal cortex (R1) |
@@ -52,3 +52,13 @@ Samples with the same group and replicate number originate from the same animal.
 - Chinese biological annotations and original worksheet names in vendor-provided data files are intentionally preserved.
 
 See `data/README.md` for data provenance, worksheet details, and file checksums.
+
+## Running the Transcriptomic Analysis
+
+The first-stage DESeq2 workflow is available in `scripts/01_transcriptomics_deseq2.R`. Run it with:
+
+```bash
+bash scripts/run_transcriptomics.sh
+```
+
+See `scripts/README.md` for inputs, outputs, statistical thresholds, and implementation details.
