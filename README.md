@@ -62,3 +62,10 @@ bash scripts/run_transcriptomics.sh
 ```
 
 See `scripts/README.md` for inputs, outputs, statistical thresholds, and implementation details.
+
+The second-stage proteomic workflow is available in
+`scripts/02_proteomics_limma.R` and can be run with:
+
+```bash
+bash scripts/run_proteomics.sh
+```

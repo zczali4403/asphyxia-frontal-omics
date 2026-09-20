@@ -1,0 +1,14 @@
+Metric	Value
+Input proteins	7702
+Proteins retained after missingness filtering	7418
+Control samples	4
+Asphyxia samples	4
+FDR-significant proteins	0
+FDR- and effect-size-filtered upregulated proteins	0
+FDR- and effect-size-filtered downregulated proteins	0
+Exploratory nominal-P upregulated proteins	35
+Exploratory nominal-P downregulated proteins	42
+Adjusted P-value threshold	0.05
+Nominal P-value threshold for exploratory results	0.05
+Absolute log2FC threshold	0.5
+Maximum missing fraction per group	0.5
