@@ -1,0 +1,13 @@
+Metric	Value
+RNA samples	6
+Protein samples	8
+RNA features with finite correlation	21540
+Protein features with finite correlation	7417
+Ranked RNA genes	19182
+Ranked protein genes	7241
+RNA pathways with P value < 0.05	1577
+Protein pathways with P value < 0.05	814
+Shared pathways with P value < 0.05	280
+Shared concordant pathways	148
+Shared opposite-direction pathways	132
+Shared concordant FDR pathways	70
