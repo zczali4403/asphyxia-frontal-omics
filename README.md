@@ -69,3 +69,16 @@ The second-stage proteomic workflow is available in
 ```bash
 bash scripts/run_proteomics.sh
 ```
+
+After both single-omics workflows are complete, run the transcriptome-proteome
+integration with:
+
+```bash
+bash scripts/run_transcriptome_proteome_integration.sh
+```
+
+Run ranked transcriptome-proteome GSEA and pathway-level integration with:
+
+```bash
+bash scripts/run_pathway_gsea.sh
+```
