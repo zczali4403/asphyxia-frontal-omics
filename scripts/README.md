@@ -98,5 +98,7 @@ directions, displaying up to eight negative and eight positive pathways.
 at `r = 1`. A Plcxd2-centered network additionally displays the five strongest
 positive and five strongest negative correlates from each omics layer; edge
 color indicates correlation direction and edge width indicates absolute
-Pearson correlation. These results are exploratory and do not establish
-regulation by `Plcxd2`.
+Pearson correlation. A dedicated enrichment curve shows the significant
+transcriptomic GSEA result for GO:0042578 (`phosphoric ester hydrolase
+activity`) and marks the position of `Plcxd2` in the ranked list. These results
+are exploratory and do not establish regulation by `Plcxd2`.

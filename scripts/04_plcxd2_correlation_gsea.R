@@ -6,7 +6,7 @@
 
 required_packages <- c(
   "ggplot2", "clusterProfiler", "AnnotationDbi", "org.Mm.eg.db",
-  "GO.db", "KEGGREST", "BiocParallel"
+  "GO.db", "KEGGREST", "BiocParallel", "patchwork", "scales"
 )
 missing_packages <- required_packages[
   !vapply(required_packages, requireNamespace, logical(1), quietly = TRUE)
@@ -25,6 +25,7 @@ suppressPackageStartupMessages({
   library(AnnotationDbi)
   library(org.Mm.eg.db)
   library(GO.db)
+  library(patchwork)
 })
 BiocParallel::register(BiocParallel::SerialParam(), default = TRUE)
 
@@ -713,6 +714,161 @@ save_ggplot(
   8.2
 )
 
+pathway_curve_id <- "GO:0042578"
+pathway_curve_result <- rna_gsea[
+  rna_gsea$ID == pathway_curve_id & rna_gsea$Database == "GO MF",
+  ,
+  drop = FALSE
+]
+if (nrow(pathway_curve_result) == 1) {
+  pathway_genes <- unique(go_annotations$Gene[
+    go_annotations$Term == pathway_curve_id
+  ])
+  ranked_ids <- names(rna_rank)
+  pathway_hits <- ranked_ids %in% pathway_genes
+  hit_weights <- abs(rna_rank) * pathway_hits
+  running_score <- cumsum(hit_weights) / sum(hit_weights) -
+    cumsum(!pathway_hits) / sum(!pathway_hits)
+  curve_data <- data.frame(
+    Rank = seq_along(rna_rank),
+    PearsonR = unname(rna_rank),
+    RunningES = running_score,
+    IsHit = pathway_hits,
+    EntrezID = ranked_ids,
+    stringsAsFactors = FALSE
+  )
+  peak_rank <- curve_data$Rank[which.max(curve_data$RunningES)]
+  peak_score <- max(curve_data$RunningES)
+  plcxd2_rank <- curve_data$Rank[curve_data$EntrezID == "433022"]
+  write.csv(
+    curve_data,
+    file.path(
+      tables_dir,
+      "phosphoric_ester_hydrolase_gsea_running_score.csv"
+    ),
+    row.names = FALSE,
+    quote = TRUE
+  )
+
+  curve_panel <- ggplot(curve_data, aes(x = Rank, y = RunningES)) +
+    geom_hline(yintercept = 0, color = "#9AA2AE", linewidth = 0.45) +
+    geom_line(color = "#D95F59", linewidth = 1.05) +
+    geom_area(
+      aes(y = pmax(RunningES, 0)),
+      fill = "#D95F59", alpha = 0.10
+    ) +
+    geom_point(
+      data = curve_data[curve_data$Rank == peak_rank, , drop = FALSE],
+      color = "#D95F59", fill = "white", shape = 21,
+      size = 3.2, stroke = 1.0
+    ) +
+    annotate(
+      "text",
+      x = length(rna_rank) * 0.98,
+      y = peak_score * 0.92,
+      label = sprintf(
+        "%s  |  NES = %.2f  |  FDR = %.3g",
+        pathway_curve_id,
+        pathway_curve_result$NES,
+        pathway_curve_result$p.adjust
+      ),
+      hjust = 1,
+      color = "#4B5563",
+      size = 3.8
+    ) +
+    scale_x_continuous(expand = expansion(mult = c(0, 0))) +
+    labs(x = NULL, y = "Running enrichment score") +
+    theme_project() +
+    theme(
+      axis.text.x = element_blank(),
+      axis.ticks.x = element_blank(),
+      panel.grid.major.x = element_blank(),
+      plot.margin = margin(6, 14, 0, 14)
+    )
+
+  hit_data <- curve_data[curve_data$IsHit, , drop = FALSE]
+  hit_panel <- ggplot(hit_data, aes(x = Rank)) +
+    geom_segment(
+      aes(xend = Rank, y = 0, yend = 1),
+      color = "#273142", linewidth = 0.28, alpha = 0.72
+    ) +
+    geom_segment(
+      data = data.frame(Rank = plcxd2_rank),
+      aes(x = Rank, xend = Rank, y = 0, yend = 1),
+      inherit.aes = FALSE,
+      color = "#F2B134", linewidth = 1.5
+    ) +
+    annotate(
+      "text",
+      x = plcxd2_rank + length(rna_rank) * 0.006,
+      y = 1.18,
+      label = target_symbol,
+      hjust = 0,
+      vjust = 0,
+      color = "#B77900",
+      fontface = "bold",
+      size = 3.4
+    ) +
+    scale_x_continuous(
+      limits = c(1, length(rna_rank)),
+      expand = expansion(mult = c(0, 0))
+    ) +
+    scale_y_continuous(limits = c(0, 1.42), expand = c(0, 0)) +
+    labs(x = NULL, y = "Gene-set hits") +
+    theme_minimal(base_size = 12) +
+    theme(
+      panel.grid = element_blank(),
+      axis.text = element_blank(),
+      axis.ticks = element_blank(),
+      axis.title.y = element_text(face = "bold", color = "#273142"),
+      plot.margin = margin(0, 14, 0, 14)
+    )
+
+  rank_panel <- ggplot(curve_data, aes(x = Rank, y = PearsonR)) +
+    geom_hline(yintercept = 0, color = "#9AA2AE", linewidth = 0.4) +
+    geom_area(
+      data = curve_data[curve_data$PearsonR >= 0, , drop = FALSE],
+      fill = "#D95F59", alpha = 0.58
+    ) +
+    geom_area(
+      data = curve_data[curve_data$PearsonR < 0, , drop = FALSE],
+      fill = "#4C78A8", alpha = 0.58
+    ) +
+    geom_line(color = "#6B7280", linewidth = 0.35) +
+    scale_x_continuous(
+      limits = c(1, length(rna_rank)),
+      expand = expansion(mult = c(0, 0)),
+      labels = scales::label_comma()
+    ) +
+    labs(
+      x = "Rank in Plcxd2 correlation-ordered gene list",
+      y = "Pearson r"
+    ) +
+    theme_project() +
+    theme(
+      panel.grid.major.x = element_blank(),
+      plot.margin = margin(0, 14, 6, 14)
+    )
+
+  pathway_curve_plot <- curve_panel / hit_panel / rank_panel +
+    plot_layout(heights = c(3.2, 0.65, 1.55)) +
+    plot_annotation(
+      title = "Phosphoric ester hydrolase activity GSEA",
+      theme = theme(
+        plot.title = element_text(
+          face = "bold", size = 18, hjust = 0.5, color = "#111827"
+        ),
+        plot.margin = margin(10, 10, 4, 10)
+      )
+    )
+  save_ggplot(
+    pathway_curve_plot,
+    file.path(figures_dir, "05_phosphoric_ester_hydrolase_gsea"),
+    10.4,
+    7.8
+  )
+}
+
 if (nrow(shared_concordant) > 0) {
   integrated_negative <- shared_concordant[
     shared_concordant$DirectionPattern == "Both negative",
@@ -855,7 +1011,10 @@ write.table(
   row.names = FALSE,
   quote = FALSE
 )
-capture.output(sessionInfo(), file = file.path(output_dir, "session_info.txt"))
+session_lines <- sub(
+  "[[:space:]]+$", "", capture.output(sessionInfo())
+)
+writeLines(session_lines, file.path(output_dir, "session_info.txt"))
 
 message(
   "Plcxd2 correlation GSEA complete. Shared FDR pathways: ",
