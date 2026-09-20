@@ -5,3 +5,4 @@ Group adjustment	None
 RNA samples	6
 Protein samples	8
 GSEA ranking metric	Pearson correlation coefficient
+Target self-correlation included	Yes (r = 1)
