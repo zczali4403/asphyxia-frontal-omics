@@ -1,0 +1,15 @@
+Metric	Value
+Ranked RNA genes	19183
+Ranked protein genes	7408
+RNA pathways tested	6695
+Protein pathways tested	4763
+RNA FDR-significant pathways	464
+Protein FDR-significant pathways	35
+RNA nominal pathways	1221
+Protein nominal pathways	400
+Pathways tested in both omics	4544
+Nominal pathways in both omics	79
+RNA-only nominal pathways	946
+Protein-only nominal pathways	301
+Concordant shared nominal pathways	30
+Opposite-direction shared nominal pathways	49
