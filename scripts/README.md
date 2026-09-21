@@ -7,7 +7,7 @@ environment:
 conda activate zcz_env
 ```
 
-## Frontal-Cortex Transcriptomics
+## Step 1: Frontal-Cortex Transcriptomics
 
 Run the complete DESeq2 workflow from the repository root:
 
@@ -33,7 +33,7 @@ The workflow reports two nested differential-expression sets. The FDR set uses `
 
 Each figure is exported as a publication-ready vector PDF and a 320-dpi PNG.
 
-## Frontal-Cortex Proteomics
+## Step 2: Frontal-Cortex Proteomics
 
 Run the limma workflow from the repository root:
 
@@ -52,7 +52,7 @@ exported separately as exploratory results. The workflow produces detection,
 distribution, PCA, correlation, volcano, MA, and protein heatmap figures as
 PDF and 320-dpi PNG files.
 
-## Transcriptome-Proteome Integration
+## Step 3: Transcriptome-Proteome Integration
 
 After running the transcriptomic and proteomic workflows, run:
 
