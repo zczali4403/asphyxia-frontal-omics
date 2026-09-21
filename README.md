@@ -76,3 +76,8 @@ animal correlations, and a three-layer network.
 
 See `scripts/README.md` for detailed inputs, statistical thresholds, outputs,
 and implementation notes.
+
+## License
+
+The analysis code in this repository is available under the MIT License. See
+[LICENSE](LICENSE) for details. No data are distributed under this license.
