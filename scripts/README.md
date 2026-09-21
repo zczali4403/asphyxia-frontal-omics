@@ -1,21 +1,18 @@
 # Analysis Scripts
 
+Run all scripts from the repository root after activating the analysis
+environment:
+
+```bash
+conda activate zcz_env
+```
+
 ## Frontal-Cortex Transcriptomics
 
 Run the complete DESeq2 workflow from the repository root:
 
 ```bash
-bash scripts/run_transcriptomics.sh
-```
-
-The wrapper uses the `zcz_env` Conda environment. The underlying R script can also be called directly:
-
-```bash
-conda run --no-capture-output -n zcz_env Rscript \
-  scripts/01_transcriptomics_deseq2.R \
-  data/transcriptomics/frontal_cortex_gene_counts.csv \
-  config/samples.csv \
-  results/01_transcriptomics
+Rscript scripts/01_transcriptomics_deseq2.R
 ```
 
 The three positional arguments are the count matrix, sample metadata, and output directory. If omitted, the script uses the paths shown above.
@@ -41,7 +38,7 @@ Each figure is exported as a publication-ready vector PDF and a 320-dpi PNG.
 Run the limma workflow from the repository root:
 
 ```bash
-bash scripts/run_proteomics.sh
+Rscript scripts/02_proteomics_limma.R
 ```
 
 The workflow reads the `数据矩阵` worksheet from
@@ -60,7 +57,7 @@ PDF and 320-dpi PNG files.
 After running the transcriptomic and proteomic workflows, run:
 
 ```bash
-bash scripts/run_transcriptome_proteome_integration.sh
+Rscript scripts/03_transcriptome_proteome_integration.R
 ```
 
 The workflow selects the most abundant representative when multiple features
@@ -81,7 +78,7 @@ Asphyxia using all frontal-cortex samples available in each omics dataset.
 Run the Plcxd2-centered co-response analysis with:
 
 ```bash
-bash scripts/run_plcxd2_correlation_gsea.sh
+Rscript scripts/04_plcxd2_correlation_gsea.R
 ```
 
 For each omics layer, Pearson correlations are calculated between `Plcxd2`
@@ -108,7 +105,7 @@ are exploratory and do not establish regulation by `Plcxd2`.
 Run the frontal-cortex metabolomics workflow with:
 
 ```bash
-bash scripts/run_metabolomics.sh
+Rscript scripts/05_metabolomics_oplsda.R
 ```
 
 The workflow uses the original-intensity worksheet (`缺失值数据矩阵`) for
@@ -130,7 +127,7 @@ candidate-abundance figures as PDF and 320-dpi PNG files.
 Run the local KEGG pathway and Plcxd2-metabolomics integration workflow with:
 
 ```bash
-bash scripts/run_plcxd2_metabolomics_integration.sh
+Rscript scripts/06_plcxd2_metabolomics_integration.R
 ```
 
 The workflow parses the KEGG compound and pathway annotations already present
