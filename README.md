@@ -53,46 +53,42 @@ Samples with the same group and replicate number originate from the same animal.
 
 See `data/README.md` for data provenance, worksheet details, and file checksums.
 
-## Running the Transcriptomic Analysis
+## Analysis Workflow
 
-The first-stage DESeq2 workflow is available in `scripts/01_transcriptomics_deseq2.R`. Run it with:
+Run all commands from the repository root. Each wrapper uses the `zcz_env`
+Conda environment and writes results to the corresponding numbered directory
+under `results/`.
 
-```bash
-bash scripts/run_transcriptomics.sh
-```
+| Step | Analysis | Command | Main output directory |
+|---:|---|---|---|
+| 1 | Transcriptomic differential expression with DESeq2 | `bash scripts/run_transcriptomics.sh` | `results/01_transcriptomics/` |
+| 2 | Proteomic differential expression with limma | `bash scripts/run_proteomics.sh` | `results/02_proteomics/` |
+| 3 | Transcriptome-proteome integration and nine-quadrant analysis | `bash scripts/run_transcriptome_proteome_integration.sh` | `results/03_transcriptome_proteome_integration/` |
+| 4 | Plcxd2-centered transcriptome/proteome correlation GSEA | `bash scripts/run_plcxd2_correlation_gsea.sh` | `results/04_plcxd2_correlation_gsea/` |
+| 5 | Metabolomic OPLS-DA, permutation validation, and VIP analysis | `bash scripts/run_metabolomics.sh` | `results/05_metabolomics/` |
+| 6 | Plcxd2-metabolomics pathway integration | `bash scripts/run_plcxd2_metabolomics_integration.sh` | `results/06_plcxd2_metabolomics_integration/` |
 
-See `scripts/README.md` for inputs, outputs, statistical thresholds, and implementation details.
+Step 4 ranks genes and proteins by their unadjusted Pearson correlation with
+`Plcxd2`; it does not regress out the Control/Asphyxia group effect. GSEA
+multiple-testing results are nevertheless reported with BH-adjusted FDR, and
+the shared-pathway summary retains concordant pathways significant in both
+omics layers.
 
-The second-stage proteomic workflow is available in
-`scripts/02_proteomics_limma.R` and can be run with:
+Step 5 applies feature-level detection and QC filters before fitting an
+OPLS-DA model. VIP candidates require `VIP > 1`, nominal `P < 0.05`, and
+`|log2FC| >= 0.5`. OPLS-DA separation and VIP values are exploratory and must
+be interpreted together with cross-validation, permutation testing, and
+multiple-testing results.
 
-```bash
-bash scripts/run_proteomics.sh
-```
+Step 6 uses the KEGG annotations already present in the metabolomics table.
+It performs VIP-candidate pathway over-representation analysis, calculates
+per-animal pathway activity with ssGSEA, and correlates Plcxd2 RNA and protein
+abundance with metabolites and pathway scores in matched animals. Its final
+network connects Plcxd2 RNA/protein, selected pathways, and representative
+VIP metabolites. Nominal pathway enrichment (`P < 0.05`) is distinguished
+from FDR significance in the exported tables and figures.
 
-After both single-omics workflows are complete, run the transcriptome-proteome
-integration with:
-
-```bash
-bash scripts/run_transcriptome_proteome_integration.sh
-```
-
-As the fourth analysis step, run the unadjusted Plcxd2-centered correlation
-GSEA with:
-
-```bash
-bash scripts/run_plcxd2_correlation_gsea.sh
-```
-
-Run the fifth-stage metabolomics OPLS-DA and VIP workflow with:
-
-```bash
-bash scripts/run_metabolomics.sh
-```
-
-After completing the metabolomics workflow, run the sixth-stage local KEGG
-pathway and Plcxd2-metabolomics integration analysis with:
-
-```bash
-bash scripts/run_plcxd2_metabolomics_integration.sh
-```
+These Plcxd2-centered correlations and networks represent cross-omics
+co-variation, not evidence that Plcxd2 directly regulates a metabolite or
+pathway. See `scripts/README.md` for detailed inputs, thresholds, outputs, and
+implementation notes.
