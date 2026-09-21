@@ -1,0 +1,108 @@
+"PathwayID","PathwayName","BackgroundSize","CandidateSize","PathwaySize","OverlapSize","FoldEnrichment","Pvalue","OverlapFeatures","padj"
+"mmu04917","Prolactin signaling pathway",237,22,4,3,8.07954545454546,0.0026406860891288,"FT2131NR/FT1060PR/FT1738PR",0.282553411536782
+"mmu00600","Sphingolipid metabolism",237,22,6,3,5.38636363636364,0.011646554179659,"FT4993PR/FT4274NR/FT5804PR",0.623090648611757
+"mmu00140","Steroid hormone biosynthesis",237,22,4,2,5.38636363636364,0.0441075690109091,"FT4461PR/FT4483PR",0.762773337391502
+"mmu04964","Proximal tubule bicarbonate reclamation",237,22,4,2,5.38636363636364,0.0441075690109091,"FT0521NR/FT1228PR",0.762773337391502
+"mmu04728","Dopaminergic synapse",237,22,4,2,5.38636363636364,0.0441075690109091,"FT1060PR/FT1738PR",0.762773337391502
+"mmu00360","Phenylalanine metabolism",237,22,5,2,4.30909090909091,0.0693792315640971,"FT1339NR/FT1738PR",0.762773337391502
+"mmu05030","Cocaine addiction",237,22,5,2,4.30909090909091,0.0693792315640971,"FT1060PR/FT1738PR",0.762773337391502
+"mmu05031","Amphetamine addiction",237,22,5,2,4.30909090909091,0.0693792315640971,"FT1060PR/FT1738PR",0.762773337391502
+"mmu05034","Alcoholism",237,22,5,2,4.30909090909091,0.0693792315640971,"FT1060PR/FT1738PR",0.762773337391502
+"mmu05230","Central carbon metabolism in cancer",237,22,18,4,2.39393939393939,0.0712872277935984,"FT0521NR/FT2131NR/FT1228PR/FT1738PR",0.762773337391502
+"mmu00750","Vitamin B6 metabolism",237,22,6,2,3.59090909090909,0.0982455702563161,"FT1064NR/FT1228PR",0.95566145612962
+"mmu01040","Biosynthesis of unsaturated fatty acids",237,22,7,2,3.07792207792208,0.129886076563112,"FT3426NR/FT4081NR",1
+"mmu04080","Neuroactive ligand-receptor interaction",237,22,15,3,2.15454545454545,0.151370193892264,"FT4993PR/FT4274NR/FT1060PR",1
+"mmu00350","Tyrosine metabolism",237,22,8,2,2.69318181818182,0.163590094150786,"FT1060PR/FT1738PR",1
+"mmu05012","Parkinson disease",237,22,8,2,2.69318181818182,0.163590094150786,"FT1060PR/FT1738PR",1
+"mmu04925","Aldosterone synthesis and secretion",237,22,3,1,3.59090909090909,0.254403903828509,"FT4483PR",1
+"mmu00524","Neomycin, kanamycin and gentamicin biosynthesis",237,22,3,1,3.59090909090909,0.254403903828509,"FT2131NR",1
+"mmu04931","Insulin resistance",237,22,3,1,3.59090909090909,0.254403903828509,"FT2131NR",1
+"mmu04724","Glutamatergic synapse",237,22,3,1,3.59090909090909,0.254403903828509,"FT1228PR",1
+"mmu04923","Regulation of lipolysis in adipocytes",237,22,4,1,2.69318181818182,0.324502682101042,"FT4483PR",1
+"mmu04071","Sphingolipid signaling pathway",237,22,4,1,2.69318181818182,0.324502682101042,"FT4274NR",1
+"mmu00562","Inositol phosphate metabolism",237,22,4,1,2.69318181818182,0.324502682101042,"FT2131NR",1
+"mmu04918","Thyroid hormone synthesis",237,22,4,1,2.69318181818182,0.324502682101042,"FT2131NR",1
+"mmu04540","Gap junction",237,22,4,1,2.69318181818182,0.324502682101042,"FT1060PR",1
+"mmu04721","Synaptic vesicle cycle",237,22,4,1,2.69318181818182,0.324502682101042,"FT1060PR",1
+"mmu05032","Morphine addiction",237,22,4,1,2.69318181818182,0.324502682101042,"FT1060PR",1
+"mmu00730","Thiamine metabolism",237,22,4,1,2.69318181818182,0.324502682101042,"FT1738PR",1
+"mmu04122","Sulfur relay system",237,22,4,1,2.69318181818182,0.324502682101042,"FT5179PR",1
+"mmu05208","Chemical carcinogenesis - reactive oxygen species",237,22,4,1,2.69318181818182,0.324502682101042,"FT5179PR",1
+"mmu00630","Glyoxylate and dicarboxylate metabolism",237,22,14,2,1.53896103896104,0.38041067811524,"FT0521NR/FT1228PR",1
+"mmu04072","Phospholipase D signaling pathway",237,22,5,1,2.15454545454545,0.388283544735279,"FT4274NR",1
+"mmu00620","Pyruvate metabolism",237,22,5,1,2.15454545454545,0.388283544735279,"FT0521NR",1
+"mmu05200","Pathways in cancer",237,22,5,1,2.15454545454545,0.388283544735279,"FT0521NR",1
+"mmu00052","Galactose metabolism",237,22,5,1,2.15454545454545,0.388283544735279,"FT6590NR",1
+"mmu00400","Phenylalanine, tyrosine and tryptophan biosynthesis",237,22,5,1,2.15454545454545,0.388283544735279,"FT1738PR",1
+"mmu00670","One carbon pool by folate",237,22,5,1,2.15454545454545,0.388283544735279,"FT5179PR",1
+"mmu00970","Aminoacyl-tRNA biosynthesis",237,22,15,2,1.43636363636364,0.415647675688006,"FT1228PR/FT1738PR",1
+"mmu00270","Cysteine and methionine metabolism",237,22,15,2,1.43636363636364,0.415647675688006,"FT0178PR/FT5179PR",1
+"mmu00541","Biosynthesis of various nucleotide sugars",237,22,6,1,1.79545454545455,0.446291139631071,"FT4461NR",1
+"mmu00020","Citrate cycle (TCA cycle)",237,22,6,1,1.79545454545455,0.446291139631071,"FT0521NR",1
+"mmu04922","Glucagon signaling pathway",237,22,6,1,1.79545454545455,0.446291139631071,"FT0521NR",1
+"mmu05415","Diabetic cardiomyopathy",237,22,6,1,1.79545454545455,0.446291139631071,"FT2131NR",1
+"mmu04727","GABAergic synapse",237,22,6,1,1.79545454545455,0.446291139631071,"FT1228PR",1
+"mmu04981","Folate transport and metabolism",237,22,6,1,1.79545454545455,0.446291139631071,"FT5179PR",1
+"mmu04148","Efferocytosis",237,22,16,2,1.34659090909091,0.45000034706686,"FT4274NR/FT5179PR",1
+"mmu04974","Protein digestion and absorption",237,22,17,2,1.26737967914438,0.483327101562907,"FT1228PR/FT1738PR",1
+"mmu00520","Amino sugar and nucleotide sugar metabolism",237,22,7,1,1.53896103896104,0.499025316809064,"FT6590NR",1
+"mmu04082","Neuroactive ligand signaling",237,22,7,1,1.53896103896104,0.499025316809064,"FT1060PR",1
+"mmu04978","Mineral absorption",237,22,9,1,1.1969696969697,0.5904696039592,"FT1228PR",1
+"mmu04024","cAMP signaling pathway",237,22,9,1,1.1969696969697,0.5904696039592,"FT1060PR",1
+"mmu00480","Glutathione metabolism",237,22,10,1,1.07727272727273,0.629985694805242,"FT2359PR",1
+"mmu04742","Taste transduction",237,22,10,1,1.07727272727273,0.629985694805242,"FT0521NR",1
+"mmu00340","Histidine metabolism",237,22,11,1,0.979338842975207,0.665846112048787,"FT0435NR",1
+"mmu00220","Arginine biosynthesis",237,22,11,1,0.979338842975207,0.665846112048787,"FT1228PR",1
+"mmu00240","Pyrimidine metabolism",237,22,13,1,0.828671328671329,0.727866650780027,"FT1228PR",1
+"mmu00330","Arginine and proline metabolism",237,22,13,1,0.828671328671329,0.727866650780027,"FT5179PR",1
+"mmu04976","Bile secretion",237,22,14,1,0.76948051948052,0.754594033292703,"FT1060PR",1
+"mmu00470","D-Amino acid metabolism",237,22,15,1,0.718181818181818,0.778804487407324,"FT1228PR",1
+"mmu00250","Alanine, aspartate and glutamate metabolism",237,22,16,1,0.673295454545455,0.800724763430022,"FT1228PR",1
+"mmu00230","Purine metabolism",237,22,22,1,0.489669421487603,0.894585296657535,"FT1228PR",1
+"mmu02010","ABC transporters",237,22,32,1,0.336647727272727,0.965054294079734,"FT1228PR",1
+"mmu00260","Glycine, serine and threonine metabolism",237,22,11,0,0,1,"",1
+"mmu00053","Ascorbate and aldarate metabolism",237,22,9,0,0,1,"",1
+"mmu00310","Lysine degradation",237,22,6,0,0,1,"",1
+"mmu00040","Pentose and glucuronate interconversions",237,22,6,0,0,1,"",1
+"mmu00051","Fructose and mannose metabolism",237,22,4,0,0,1,"",1
+"mmu00561","Glycerolipid metabolism",237,22,4,0,0,1,"",1
+"mmu00564","Glycerophospholipid metabolism",237,22,19,0,0,1,"",1
+"mmu00640","Propanoate metabolism",237,22,5,0,0,1,"",1
+"mmu00760","Nicotinate and nicotinamide metabolism",237,22,9,0,0,1,"",1
+"mmu00770","Pantothenate and CoA biosynthesis",237,22,8,0,0,1,"",1
+"mmu00920","Sulfur metabolism",237,22,7,0,0,1,"",1
+"mmu00190","Oxidative phosphorylation",237,22,5,0,0,1,"",1
+"mmu00650","Butanoate metabolism",237,22,7,0,0,1,"",1
+"mmu00740","Riboflavin metabolism",237,22,5,0,0,1,"",1
+"mmu00410","beta-Alanine metabolism",237,22,8,0,0,1,"",1
+"mmu00120","Primary bile acid biosynthesis",237,22,3,0,0,1,"",1
+"mmu00030","Pentose phosphate pathway",237,22,6,0,0,1,"",1
+"mmu05215","Prostate cancer",237,22,4,0,0,1,"",1
+"mmu05231","Choline metabolism in cancer",237,22,15,0,0,1,"",1
+"mmu00380","Tryptophan metabolism",237,22,11,0,0,1,"",1
+"mmu04726","Serotonergic synapse",237,22,8,0,0,1,"",1
+"mmu05143","African trypanosomiasis",237,22,3,0,0,1,"",1
+"mmu00590","Arachidonic acid metabolism",237,22,9,0,0,1,"",1
+"mmu04913","Ovarian steroidogenesis",237,22,4,0,0,1,"",1
+"mmu04921","Oxytocin signaling pathway",237,22,4,0,0,1,"",1
+"mmu04977","Vitamin digestion and absorption",237,22,7,0,0,1,"",1
+"mmu00591","Linoleic acid metabolism",237,22,4,0,0,1,"",1
+"mmu04723","Retrograde endocannabinoid signaling",237,22,6,0,0,1,"",1
+"mmu01523","Antifolate resistance",237,22,4,0,0,1,"",1
+"mmu05146","Amoebiasis",237,22,4,0,0,1,"",1
+"mmu04216","Ferroptosis",237,22,5,0,0,1,"",1
+"mmu00983","Drug metabolism - other enzymes",237,22,4,0,0,1,"",1
+"mmu04750","Inflammatory mediator regulation of TRP channels",237,22,3,0,0,1,"",1
+"mmu00860","Porphyrin metabolism",237,22,3,0,0,1,"",1
+"mmu00430","Taurine and hypotaurine metabolism",237,22,7,0,0,1,"",1
+"mmu00660","C5-Branched dibasic acid metabolism",237,22,3,0,0,1,"",1
+"mmu04068","FoxO signaling pathway",237,22,3,0,0,1,"",1
+"mmu05014","Amyotrophic lateral sclerosis",237,22,3,0,0,1,"",1
+"mmu05022","Pathways of neurodegeneration - multiple diseases",237,22,6,0,0,1,"",1
+"mmu04022","cGMP-PKG signaling pathway",237,22,3,0,0,1,"",1
+"mmu04714","Thermogenesis",237,22,4,0,0,1,"",1
+"mmu04740","Olfactory transduction",237,22,3,0,0,1,"",1
+"mmu04924","Renin secretion",237,22,4,0,0,1,"",1
+"mmu04928","Parathyroid hormone synthesis, secretion and action",237,22,3,0,0,1,"",1
+"mmu00061","Fatty acid biosynthesis",237,22,3,0,0,1,"",1
+"mmu04152","AMPK signaling pathway",237,22,4,0,0,1,"",1

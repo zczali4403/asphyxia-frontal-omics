@@ -1,0 +1,73 @@
+R version 4.3.1 (2023-06-16)
+Platform: x86_64-conda-linux-gnu (64-bit)
+Running under: Ubuntu 22.04.5 LTS
+
+Matrix products: default
+BLAS/LAPACK: /home4/zcz/.conda/envs/zcz_env/lib/libopenblasp-r0.3.29.so;  LAPACK version 3.12.0
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=zh_CN.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=zh_CN.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=zh_CN.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=zh_CN.UTF-8 LC_IDENTIFICATION=C       
+
+time zone: Asia/Shanghai
+tzcode source: system (glibc)
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] ggrepel_0.9.6 ggplot2_3.5.2
+
+loaded via a namespace (and not attached):
+ [1] tidyselect_1.2.1            viridisLite_0.4.2          
+ [3] dplyr_1.1.4                 farver_2.1.2               
+ [5] blob_1.2.4                  viridis_0.6.5              
+ [7] Biostrings_2.70.1           bitops_1.0-9               
+ [9] ggraph_2.2.1                fastmap_1.2.0              
+[11] SingleCellExperiment_1.24.0 RCurl_1.98-1.16            
+[13] tweenr_2.0.3                rsvd_1.0.5                 
+[15] XML_3.99-0.17               lifecycle_1.0.4            
+[17] KEGGREST_1.42.0             RSQLite_2.4.3              
+[19] magrittr_2.0.3              compiler_4.3.1             
+[21] rlang_1.1.6                 tools_4.3.1                
+[23] igraph_1.5.1                labeling_0.4.3             
+[25] S4Arrays_1.2.0              graphlayouts_1.2.2         
+[27] bit_4.6.0                   DelayedArray_0.28.0        
+[29] RColorBrewer_1.1-3          abind_1.4-5                
+[31] BiocParallel_1.36.0         HDF5Array_1.30.0           
+[33] withr_3.0.2                 purrr_1.1.0                
+[35] BiocGenerics_0.48.1         grid_4.3.1                 
+[37] polyclip_1.10-7             stats4_4.3.1               
+[39] beachmat_2.18.0             xtable_1.8-4               
+[41] Rhdf5lib_1.24.0             scales_1.4.0               
+[43] MASS_7.3-60.0.1             SummarizedExperiment_1.32.0
+[45] cli_3.6.5                   crayon_1.5.3               
+[47] ragg_1.2.6                  generics_0.1.4             
+[49] httr_1.4.7                  DelayedMatrixStats_1.24.0  
+[51] rhdf5_2.46.1                DBI_1.2.3                  
+[53] cachem_1.1.0                ggforce_0.5.0              
+[55] zlibbioc_1.48.0             parallel_4.3.1             
+[57] AnnotationDbi_1.64.1        XVector_0.42.0             
+[59] matrixStats_1.5.0           vctrs_0.6.5                
+[61] Matrix_1.6-5                BiocSingular_1.18.0        
+[63] IRanges_2.36.0              S4Vectors_0.40.2           
+[65] bit64_4.6.0-1               irlba_2.3.5.1              
+[67] GSEABase_1.64.0             systemfonts_1.2.1          
+[69] GSVA_1.50.0                 tidyr_1.3.1                
+[71] annotate_1.80.0             glue_1.8.0                 
+[73] codetools_0.2-20            gtable_0.3.6               
+[75] GenomeInfoDb_1.38.1         GenomicRanges_1.54.1       
+[77] ScaledMatrix_1.10.0         tibble_3.3.0               
+[79] pillar_1.11.0               rhdf5filters_1.14.1        
+[81] graph_1.80.0                GenomeInfoDbData_1.2.11    
+[83] R6_2.6.1                    textshaping_0.3.7          
+[85] sparseMatrixStats_1.14.0    tidygraph_1.3.0            
+[87] Biobase_2.62.0              lattice_0.22-7             
+[89] png_0.1-8                   memoise_2.0.1              
+[91] Rcpp_1.1.0                  gridExtra_2.3              
+[93] SparseArray_1.2.2           MatrixGenerics_1.14.0      
+[95] pkgconfig_2.0.3            

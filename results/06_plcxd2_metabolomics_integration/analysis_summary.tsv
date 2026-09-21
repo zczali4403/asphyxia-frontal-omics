@@ -1,0 +1,15 @@
+Metric	Value
+Metabolite features	1394
+KEGG compound-annotated features	375
+KEGG pathway-annotated features	237
+VIP candidates	162
+Pathway-annotated VIP candidates	22
+Tested KEGG pathways	107
+VIP ORA pathways at FDR < 0.05	0
+RNA-metabolomics matched animals	6
+Protein-metabolomics matched animals	8
+Concordant Plcxd2-metabolite correlations	1097
+ssGSEA-scored KEGG pathways	107
+Concordant Plcxd2-pathway correlations	83
+Network pathways	6
+Network metabolites	10

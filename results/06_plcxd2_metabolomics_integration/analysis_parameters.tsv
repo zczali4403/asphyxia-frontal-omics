@@ -1,0 +1,12 @@
+Parameter	Value
+Target	Plcxd2
+Correlation	Pearson
+Group adjustment	None
+RNA matched animals	6
+Protein matched animals	8
+Pathway source	Local KEGG annotations from metabolomics table
+ORA candidate definition	OPLS-DA VIP candidate
+Pathway activity method	GSVA::ssGSEA (alpha = 0.25)
+ssGSEA normalization	Enabled
+Minimum pathway size	3
+Maximum pathway size	500

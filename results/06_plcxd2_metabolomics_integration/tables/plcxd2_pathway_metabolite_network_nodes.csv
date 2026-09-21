@@ -1,0 +1,30 @@
+"Node","Label","NodeType","NodeClass","x","y"
+"Plcxd2_RNA","Plcxd2
+RNA","Transcriptomics","Plcxd2 RNA",-3.2,1.25
+"Plcxd2_Protein","Plcxd2
+protein","Proteomics","Plcxd2 protein",-3.2,-1.25
+"Pathway_mmu04917","Prolactin signaling
+pathway","Pathway","Positive pathway",0,2.5
+"Pathway_mmu00600","Sphingolipid
+metabolism","Pathway","Negative pathway",0,1.5
+"Pathway_mmu00140","Steroid hormone
+biosynthesis","Pathway","Positive pathway",0,0.5
+"Pathway_mmu04964","Proximal tubule
+bicarbonate
+reclamation","Pathway","Positive pathway",0,-0.5
+"Pathway_mmu04728","Dopaminergic
+synapse","Pathway","Positive pathway",0,-1.5
+"Pathway_mmu00360","Phenylalanine
+metabolism","Pathway","Positive pathway",0,-2.5
+"FT4461PR","11-Dehydrocorticosterone","Metabolite","VIP metabolite",3.2,4.5
+"FT4483PR","Corticosterone","Metabolite","VIP metabolite",3.2,3.5
+"FT1339NR","N-Acetyl-L-phenylalanine","Metabolite","VIP metabolite",3.2,2.5
+"FT1738PR","L-Tyrosine","Metabolite","VIP metabolite",3.2,1.5
+"FT5804PR","Glucosylsphingosine","Metabolite","VIP metabolite",3.2,0.5
+"FT4993PR","Sphinganine
+1-phosphate","Metabolite","VIP metabolite",3.2,-0.5
+"FT1060PR","Dopamine","Metabolite","VIP metabolite",3.2,-1.5
+"FT2131NR","Glucose
+6-phosphate","Metabolite","VIP metabolite",3.2,-2.5
+"FT0521NR","Malic acid","Metabolite","VIP metabolite",3.2,-3.5
+"FT1228PR","L-Glutamine","Metabolite","VIP metabolite",3.2,-4.5
