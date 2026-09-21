@@ -1,11 +1,7 @@
 # Analysis Scripts
 
-Run all scripts from the repository root after activating the analysis
-environment:
-
-```bash
-conda activate zcz_env
-```
+Run all scripts from the repository root in an R environment containing the
+required packages.
 
 ## Step 1: Frontal-Cortex Transcriptomics
 

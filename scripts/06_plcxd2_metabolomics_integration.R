@@ -1032,7 +1032,13 @@ write.table(
   parameters, file.path(output_dir, "analysis_parameters.tsv"),
   sep = "\t", row.names = FALSE, quote = FALSE
 )
-writeLines(capture.output(sessionInfo()), file.path(output_dir, "session_info.txt"))
+session_lines <- capture.output(sessionInfo())
+session_lines <- sub(
+  "^BLAS/LAPACK: .*;[[:space:]]*LAPACK version:",
+  "BLAS/LAPACK: <system library>; LAPACK version:",
+  session_lines
+)
+writeLines(session_lines, file.path(output_dir, "session_info.txt"))
 
 message(
   "Plcxd2-metabolomics integration complete. Pathway-annotated features: ",

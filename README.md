@@ -55,9 +55,9 @@ See `data/README.md` for data provenance, worksheet details, and file checksums.
 
 ## Analysis Workflow
 
-Run all commands from the repository root after activating the `zcz_env` Conda
-environment. Each R script uses the project paths shown below by default and
-writes results to the corresponding numbered directory under `results/`.
+Run all commands from the repository root in an R environment containing the
+required packages. Each R script uses the project paths shown below by default
+and writes results to the corresponding numbered directory under `results/`.
 
 | Step | Analysis | Command | Main output directory |
 |---:|---|---|---|

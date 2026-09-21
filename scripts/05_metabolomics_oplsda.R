@@ -814,6 +814,11 @@ write.table(
   sep = "\t", row.names = FALSE, quote = FALSE
 )
 session_lines <- sub("[[:space:]]+$", "", capture.output(sessionInfo()))
+session_lines <- sub(
+  "^BLAS/LAPACK: .*;[[:space:]]*LAPACK version:",
+  "BLAS/LAPACK: <system library>; LAPACK version:",
+  session_lines
+)
 writeLines(session_lines, file.path(output_dir, "session_info.txt"))
 
 message(

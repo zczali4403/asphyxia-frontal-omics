@@ -692,10 +692,13 @@ write.table(
   quote = FALSE
 )
 
-capture.output(
-  sessionInfo(),
-  file = file.path(output_dir, "session_info.txt")
+session_lines <- capture.output(sessionInfo())
+session_lines <- sub(
+  "^BLAS/LAPACK: .*;[[:space:]]*LAPACK version:",
+  "BLAS/LAPACK: <system library>; LAPACK version:",
+  session_lines
 )
+writeLines(session_lines, file.path(output_dir, "session_info.txt"))
 
 message(
   "Analysis complete. FDR-significant genes: ", nrow(fdr_table),
