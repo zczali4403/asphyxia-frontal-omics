@@ -124,3 +124,26 @@ permutations. VIP candidates require `VIP > 1`, nominal `P < 0.05`, and
 does not replace multiple-testing correction. The workflow exports QC, PCA,
 OPLS-DA score, permutation-validation, VIP, S-plot, volcano, heatmap, and
 candidate-abundance figures as PDF and 320-dpi PNG files.
+
+## Step 6: Metabolic Pathways and Plcxd2 Integration
+
+Run the local KEGG pathway and Plcxd2-metabolomics integration workflow with:
+
+```bash
+bash scripts/run_plcxd2_metabolomics_integration.sh
+```
+
+The workflow parses the KEGG compound and pathway annotations already present
+in the metabolomics result table. It performs exploratory over-representation
+analysis of OPLS-DA VIP candidates. No online query or identifier substitution
+is performed.
+
+Per-animal KEGG pathway activity is calculated with single-sample GSEA
+(`GSVA::ssGSEA`) using pathways containing at least three annotated
+metabolites. Unadjusted Pearson correlations are then calculated between
+Plcxd2 abundance and both individual metabolites and ssGSEA pathway scores,
+using six RNA-metabolomics matched animals and eight protein-metabolomics
+matched animals. The final three-layer network connects Plcxd2 RNA/protein to
+directionally concordant pathways and representative member metabolites.
+These small-sample correlations describe co-response and do not establish
+direct regulation by Plcxd2.
