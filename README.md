@@ -1,5 +1,7 @@
 # Multi-Omics Analysis of Mechanical Asphyxia Effects on the Mouse Frontal Cortex
 
+![Graphical abstract of the study workflow](docs/figures/graphical_abstract.png)
+
 This repository contains transcriptomic, proteomic, and metabolomic data for investigating the effects of mechanical asphyxia on the mouse frontal cortex. The study groups are labeled `Control` and `Asphyxia`, and the frontal cortex is designated as region `R1` in the source data. Original sample identifiers retain the legacy `CON` prefix.
 
 ## Study Design
