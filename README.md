@@ -83,3 +83,9 @@ GSEA with:
 ```bash
 bash scripts/run_plcxd2_correlation_gsea.sh
 ```
+
+Run the fifth-stage metabolomics OPLS-DA and VIP workflow with:
+
+```bash
+bash scripts/run_metabolomics.sh
+```

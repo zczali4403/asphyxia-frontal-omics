@@ -1,0 +1,17 @@
+Parameter	Value
+Comparison	Asphyxia vs Control
+Processed worksheet	数据矩阵
+Original worksheet	缺失值数据矩阵
+Biological detection requirement	>= 50% in either group
+QC RSD threshold	<= 30%
+Scaling	Pareto
+OPLS-DA algorithm	NIPALS implemented by ropls
+Predictive components	1
+Orthogonal components	1
+Cross-validation folds	6
+Permutations	200
+VIP threshold	1
+Nominal P threshold	0.05
+FDR threshold	0.05
+Absolute log2FC threshold	0.5
+VIP candidate definition	VIP > 1; nominal P < 0.05; absolute log2FC >= 0.5

@@ -1,0 +1,19 @@
+Metric	Value
+Biological samples	12
+Control samples	6
+Asphyxia samples	6
+QC samples	3
+Input metabolite features	1394
+Retained metabolite features	1394
+Median QC RSD (%)	8.94537158081012
+OPLS-DA predictive components	1
+OPLS-DA orthogonal components	1
+R2X cumulative	0.342
+R2Y cumulative	0.982
+Q2 cumulative	0.6
+Permutation p-value R2Y	0.075
+Permutation p-value Q2	0.015
+Metabolites with VIP > 1	396
+Metabolites with nominal P < 0.05	275
+FDR- and effect-size-filtered metabolites	0
+VIP candidate metabolites	162

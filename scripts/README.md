@@ -102,3 +102,25 @@ Pearson correlation. A dedicated enrichment curve shows the significant
 transcriptomic GSEA result for GO:0042578 (`phosphoric ester hydrolase
 activity`) and marks the position of `Plcxd2` in the ranked list. These results
 are exploratory and do not establish regulation by `Plcxd2`.
+
+## Step 5: Metabolomics OPLS-DA and VIP Analysis
+
+Run the frontal-cortex metabolomics workflow with:
+
+```bash
+bash scripts/run_metabolomics.sh
+```
+
+The workflow uses the original-intensity worksheet (`缺失值数据矩阵`) for
+detection-rate and QC-RSD assessment and the processed log2 worksheet
+(`数据矩阵`) for statistical modeling. Features must be detected in at least
+50% of either biological group, detected in all three QC samples, have QC-RSD
+no greater than 30%, and retain non-zero biological variance.
+
+OPLS-DA is fitted with `ropls` using Pareto scaling, one predictive component,
+one orthogonal component, six-fold cross-validation, and 200 label
+permutations. VIP candidates require `VIP > 1`, nominal `P < 0.05`, and
+`|log2FC| >= 0.5`. BH-adjusted FDR results are exported separately because VIP
+does not replace multiple-testing correction. The workflow exports QC, PCA,
+OPLS-DA score, permutation-validation, VIP, S-plot, volcano, heatmap, and
+candidate-abundance figures as PDF and 320-dpi PNG files.
