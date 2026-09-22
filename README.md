@@ -67,12 +67,13 @@ and writes results to the corresponding numbered directory under `results/`.
 | 4 | Plcxd2-centered transcriptome/proteome correlation GSEA | `Rscript scripts/04_plcxd2_correlation_gsea.R` | `results/04_plcxd2_correlation_gsea/` |
 | 5 | Metabolomic OPLS-DA, permutation validation, and VIP analysis | `Rscript scripts/05_metabolomics_oplsda.R` | `results/05_metabolomics/` |
 | 6 | Plcxd2-metabolomics pathway integration | `Rscript scripts/06_plcxd2_metabolomics_integration.R` | `results/06_plcxd2_metabolomics_integration/` |
+| 7 | Separate DEG and exploratory DEP pathway enrichment | `Rscript scripts/07_differential_feature_enrichment.R` | `results/07_differential_feature_enrichment/` |
 
 The workflow progresses from single-omics differential analysis to
 transcriptome-proteome integration, Plcxd2-centered pathway analysis,
-metabolomic modeling, and final Plcxd2-pathway-metabolite integration. The
-last step combines VIP pathway enrichment, ssGSEA pathway activity, matched-
-animal correlations, and a three-layer network.
+metabolomic modeling, and Plcxd2-pathway-metabolite integration. Step 7 adds
+separate pathway-enrichment analyses for differentially expressed genes and
+exploratory differential proteins.
 
 See `scripts/README.md` for detailed inputs, statistical thresholds, outputs,
 and implementation notes.

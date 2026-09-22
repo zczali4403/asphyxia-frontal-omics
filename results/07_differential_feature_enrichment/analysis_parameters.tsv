@@ -1,0 +1,8 @@
+Parameter	Value
+RNA candidate definition	FDR < 0.05 and |shrunken log2FC| >= 0.5
+Protein candidate definition	P value < 0.05 and |log2FC| >= 0.5 (exploratory)
+RNA background	Genes with finite DESeq2 P value and Entrez mapping
+Protein background	Proteins with finite limma P value and Entrez mapping
+Annotation	org.Mm.eg.db GOALL; local mouse KEGG cache
+Gene-set size	10 to 500
+Multiple-testing correction	BH separately within GO BP, GO MF, GO CC, and KEGG

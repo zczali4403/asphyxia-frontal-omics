@@ -1,0 +1,15 @@
+Metric	Value
+DEG input features	27
+DEG mapped Entrez genes	23
+DEG pathway-annotated genes	19
+RNA tested Entrez genes	19153
+RNA pathway-annotated background genes	17692
+RNA enrichment terms with uncorrected P < 0.05	232
+RNA FDR enriched terms	68
+Exploratory DEP input features	77
+DEP mapped Entrez genes	76
+DEP pathway-annotated genes	76
+Protein tested Entrez genes	7408
+Protein pathway-annotated background genes	7403
+Protein enrichment terms with uncorrected P < 0.05	128
+Protein FDR enriched terms	17

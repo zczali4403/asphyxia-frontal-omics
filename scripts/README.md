@@ -43,8 +43,8 @@ original missing fraction no greater than 50% in both groups, performs an
 unpaired limma comparison of Asphyxia versus Control, and uses BH correction.
 The primary protein set requires `padj < 0.05` and `|log2FC| >= 0.5`.
 
-Because nominal-P findings do not control the false-discovery rate, they are
-exported separately as exploratory results. The workflow produces detection,
+Proteins meeting `P value < 0.05` are exported separately as exploratory
+results. The workflow produces detection,
 distribution, PCA, correlation, volcano, MA, and protein heatmap figures as
 PDF and 320-dpi PNG files.
 
@@ -60,7 +60,7 @@ The workflow selects the most abundant representative when multiple features
 share a gene symbol, matches RNA and protein results by gene symbol, and
 produces a nine-quadrant analysis. RNA evidence is
 defined by `padj < 0.05` and `|shrunken log2FC| >= 0.5`; protein evidence is
-exploratory and uses nominal `P < 0.05` and `|log2FC| >= 0.5` because no
+exploratory and uses `P value < 0.05` and `|log2FC| >= 0.5` because no
 proteins pass FDR correction.
 
 Individual-level RNA-protein correlations use the six animals with paired
@@ -112,7 +112,7 @@ no greater than 30%, and retain non-zero biological variance.
 
 OPLS-DA is fitted with `ropls` using Pareto scaling, one predictive component,
 one orthogonal component, six-fold cross-validation, and 200 label
-permutations. VIP candidates require `VIP > 1`, nominal `P < 0.05`, and
+permutations. VIP candidates require `VIP > 1`, uncorrected `P < 0.05`, and
 `|log2FC| >= 0.5`. BH-adjusted FDR results are exported separately because VIP
 does not replace multiple-testing correction. The workflow exports QC, PCA,
 OPLS-DA score, permutation-validation, VIP, S-plot, volcano, heatmap, and
@@ -140,3 +140,23 @@ matched animals. The final three-layer network connects Plcxd2 RNA/protein to
 directionally concordant pathways and representative member metabolites.
 These small-sample correlations describe co-response and do not establish
 direct regulation by Plcxd2.
+
+## Step 7: DEG and Exploratory DEP Pathway Enrichment
+
+After Steps 1 and 2, run:
+
+```bash
+Rscript scripts/07_differential_feature_enrichment.R
+```
+
+The DEG set requires `FDR < 0.05` and `|shrunken log2FC| >= 0.5`.
+Because no proteins pass the differential-expression FDR threshold, the
+protein set is exploratory (`P value < 0.05`, `|log2FC| >= 0.5`).
+Over-representation tests use separately measured/tested genes or proteins
+as the respective background, GO BP/MF/CC annotations from `org.Mm.eg.db`,
+and the local mouse KEGG reference in `data/reference/`. Gene sets contain
+10–500 measured genes; BH correction is performed within each annotation
+class. The workflow exports full and FDR-filtered tables, plus a separate
+DEG lollipop figure and an exploratory DEP enrichment bar plot, with bars
+colored by GO BP, GO MF, GO CC, or KEGG pathway class. Enrichment FDR values
+do not make the input protein selection FDR-significant.
