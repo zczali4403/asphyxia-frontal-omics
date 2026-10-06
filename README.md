@@ -64,6 +64,7 @@ and writes results to the corresponding numbered directory under `results/`.
 | 1 | Transcriptomic differential expression with DESeq2 | `Rscript scripts/01_transcriptomics_deseq2.R` | `results/01_transcriptomics/` |
 | 1 supplement | Separate transcriptomic GO dot plot and KEGG bar plot | `Rscript scripts/01_transcriptomics_go_kegg_enrichment.R` | `results/01_transcriptomics/enrichment/` |
 | 2 | Proteomic differential expression with limma | `Rscript scripts/02_proteomics_limma.R` | `results/02_proteomics/` |
+| 2 supplement | Separate proteomic GO dot plot and KEGG bar plot | `Rscript scripts/02_proteomics_go_kegg_enrichment.R` | `results/02_proteomics/enrichment/` |
 | 3 | Transcriptome-proteome integration and nine-quadrant analysis | `Rscript scripts/03_transcriptome_proteome_integration.R` | `results/03_transcriptome_proteome_integration/` |
 | 4 | Plcxd2-centered transcriptome/proteome correlation GSEA | `Rscript scripts/04_plcxd2_correlation_gsea.R` | `results/04_plcxd2_correlation_gsea/` |
 | 5 | Metabolomic OPLS-DA, permutation validation, and VIP analysis | `Rscript scripts/05_metabolomics_oplsda.R` | `results/05_metabolomics/` |

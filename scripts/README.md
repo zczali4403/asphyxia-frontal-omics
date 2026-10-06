@@ -81,6 +81,39 @@ results. The workflow produces detection,
 distribution, PCA, correlation, volcano, MA, and protein heatmap figures as
 PDF and 320-dpi PNG files.
 
+### Step 2 Supplement: Separate GO and KEGG Enrichment
+
+After Step 2, run:
+
+```bash
+Rscript scripts/02_proteomics_go_kegg_enrichment.R
+```
+
+The standalone workflow uses `limma_exploratory_nominal_p_proteins.csv`,
+selected by `P value < 0.05` and `|log2FC| >= 0.5`. Protein `GeneID` values are
+validated as mouse Entrez IDs; query and background are deduplicated by gene
+ID. The background consists of proteins with finite limma P values and valid
+annotations in the respective GO ontology or KEGG database. GO BP/MF/CC
+annotations use `org.Mm.eg.db` GOALL; KEGG uses the local mouse reference.
+Hypergeometric tests use sets of 10–500 measured genes, with BH correction
+within BP, MF, CC and KEGG including eligible zero-overlap terms.
+
+Outputs are saved under `results/02_proteomics/enrichment/`: GO is a faceted
+dot plot with up to eight FDR-significant terms per ontology, and KEGG is a
+horizontal bar plot with up to fifteen FDR-significant pathways. Color
+intensity represents enrichment FDR. Counts and ratios refer to unique
+protein-associated genes. Both figures are exported as PDF and 320-dpi PNG;
+if no terms meet FDR < 0.05, the corresponding figure states this explicitly.
+Full results, FDR-filtered tables, plotted terms, protein mapping, background
+counts, parameters, summary and session information are also exported.
+
+The three optional positional arguments are the Step 2 result directory,
+the KEGG reference directory, and the enrichment output directory. The
+script uses protein results only. Its per-ontology/database backgrounds
+differ from the combined annotation background in Step 7, so statistics can
+differ. Enrichment FDR does not change the statistical status of the input
+protein candidates.
+
 ## Step 3: Transcriptome-Proteome Integration
 
 After running the transcriptomic and proteomic workflows, run:
