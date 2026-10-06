@@ -1,0 +1,11 @@
+Parameter	Value
+Protein input	results/02_proteomics/tables/limma_exploratory_nominal_p_proteins.csv
+Protein definition	P value < 0.05 and |log2FC| >= 0.5
+Background	Finite limma P value; measured protein genes annotated within each ontology/database
+ID mapping	Protein GeneID as Entrez; validated in org.Mm.eg.db; deduplicated query/background
+GO annotation	org.Mm.eg.db GOALL; BP, MF, CC
+KEGG annotation	data/reference
+Test	One-sided hypergeometric over-representation test
+Gene-set size	10-500 measured genes
+Correction	BH within BP, MF, CC and KEGG; includes eligible zero-overlap terms
+Plot selection	FDR < 0.05 only; top 8 per GO ontology and top 15 KEGG pathways

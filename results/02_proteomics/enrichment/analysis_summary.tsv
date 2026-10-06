@@ -1,0 +1,8 @@
+Metric	Value
+Candidate protein features	77
+Mapped tested protein genes	7408
+Mapped candidate protein genes	76
+GO BP FDR enriched terms	8
+GO MF FDR enriched terms	8
+GO CC FDR enriched terms	0
+KEGG FDR enriched terms	1

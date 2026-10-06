@@ -1,0 +1,2 @@
+"Category","TermID","Description","Count","SetSize","CandidateSize","BackgroundSize","GeneRatio","GeneRatioFraction","BgRatio","FoldEnrichment","Pvalue","OverlapEntrez","FDR","OverlapGenes"
+"KEGG","mmu04610","Complement and coagulation cascades",7,42,34,3883,0.205882352941176,"7/34","42/3883",19.0343137254902,4.45898373854948e-08,"16644/13136/20701/20703/20700/20704/12279",1.40457987764308e-05,"Kng1/Cd55/Serpina1b/Serpina1d/Serpina1a/Serpina1e/C9"
