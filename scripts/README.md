@@ -29,6 +29,39 @@ The workflow reports two nested differential-expression sets. The FDR set uses `
 
 Each figure is exported as a publication-ready vector PDF and a 320-dpi PNG.
 
+### Step 1 Supplement: Separate GO and KEGG Enrichment
+
+After Step 1, run:
+
+```bash
+Rscript scripts/01_transcriptomics_go_kegg_enrichment.R
+```
+
+This standalone analysis uses the Step 1 effect-size-filtered DEG table
+(`FDR < 0.05`, `|shrunken log2FC| >= 0.5`). GO BP/MF/CC annotations come from
+`org.Mm.eg.db` and KEGG annotations from the local mouse reference in
+`data/reference/`. Each ontology/database uses its own annotated, measured
+genes with finite DESeq2 P values as background. Hypergeometric tests use
+sets of 10–500 measured genes; BH correction is applied separately within
+BP, MF, CC and KEGG, including eligible terms with zero overlap.
+
+Outputs are saved under `results/01_transcriptomics/enrichment/`. GO is shown
+as a faceted dot plot (up to eight FDR-significant terms per ontology, gene
+ratio on the x-axis, overlap count as point size). KEGG is shown as a horizontal
+bar plot (up to fifteen FDR-significant pathways, `-log10(FDR)` on the x-axis
+and gene counts alongside bars). Both figures use color intensity for
+enrichment FDR and are exported as PDF and 320-dpi PNG. If no terms pass FDR,
+the corresponding figure states that no enriched terms were found.
+
+The three optional positional arguments are the Step 1 result directory,
+the KEGG reference directory, and the enrichment output directory. Full
+tables, FDR-filtered tables, plotted terms, gene mapping, background counts,
+parameters, summary and session information are also exported. This script
+uses transcriptomic results only and does not run Step 7 or differential
+expression again. Its per-ontology/database backgrounds differ from the
+combined annotation background used by Step 7, so enrichment statistics can
+differ.
+
 ## Step 2: Frontal-Cortex Proteomics
 
 Run the limma workflow from the repository root:
