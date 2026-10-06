@@ -1,0 +1,11 @@
+Parameter	Value
+DEG input	results/01_transcriptomics/tables/deseq2_effect_size_filtered_genes.csv
+DEG definition	FDR < 0.05 and |shrunken log2FC| >= 0.5
+Background	Finite DESeq2 P value; measured Entrez genes annotated within each ontology/database
+ID mapping	Ensembl to Entrez, first mapping, unique Entrez IDs
+GO annotation	org.Mm.eg.db GOALL; BP, MF, CC
+KEGG annotation	data/reference
+Test	One-sided hypergeometric over-representation test
+Gene-set size	10-500 measured genes
+Correction	BH within BP, MF, CC and KEGG; includes eligible zero-overlap terms
+Plot selection	FDR < 0.05 only; top 8 per GO ontology and top 15 KEGG pathways

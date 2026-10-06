@@ -1,0 +1,8 @@
+Metric	Value
+DEG input features	27
+Mapped tested Entrez genes	19153
+Mapped DEG Entrez genes	23
+GO BP FDR enriched terms	36
+GO MF FDR enriched terms	11
+GO CC FDR enriched terms	11
+KEGG FDR enriched terms	11
